@@ -1,10 +1,5 @@
 const themes = [
-  { id: "pixel", name: "Pixel Quest", icon: "⚔️", title: "STAGE CLEAR!", note: "+100 XP · The next level awaits", colors: ["#ffcf4a", "#7cf7c5", "#15102b"] },
-  { id: "web", name: "Web Hero", icon: "🕸️", title: "MISSION COMPLETE", note: "Another challenge caught in your web", colors: ["#ef5360", "#55b5ff", "#07142d"] },
-  { id: "neon", name: "Neon Tokyo", icon: "🌃", title: "SYSTEM CLEARED", note: "Run complete · Skill level rising", colors: ["#ff4fd8", "#62f4ff", "#110720"] },
-  { id: "space", name: "Cosmic Run", icon: "🚀", title: "LIFTOFF!", note: "Solution accepted · New orbit unlocked", colors: ["#b38aff", "#48e5ff", "#071426"] },
-  { id: "forest", name: "Forest Spirit", icon: "🍃", title: "QUEST COMPLETE", note: "A calm mind finds the path", colors: ["#80ed99", "#d8f3dc", "#081c15"] },
-  { id: "sunset", name: "Sunset Drive", icon: "🌅", title: "SMOOTH SOLVE", note: "Cruising into the next challenge", colors: ["#ff7b54", "#ffd56b", "#28143d"] }
+  { id: "neon-web", name: "Neon Web", icon: "🕸️", title: "CITY SAVED!", note: "Another bug caught · Mission complete", colors: ["#ff304f", "#29b6ff", "#050b18"] }
 ];
 
 const tabs = document.querySelector(".theme-tabs");

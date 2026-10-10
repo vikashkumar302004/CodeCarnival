@@ -1,14 +1,9 @@
 const CC_THEMES = {
-  "web-hero": { emoji: "🕸️", title: "MISSION COMPLETE", eyebrow: "Web Hero", note: "Another challenge caught in your web.", colors: ["#ef3340", "#42a5ff"], effect: "web" },
-  "pixel-quest": { emoji: "⚔️", title: "STAGE CLEAR!", eyebrow: "Pixel Quest", note: "+100 XP · The next level awaits", colors: ["#ffcf4a", "#7cf7c5"], effect: "pixel" },
-  "neon-tokyo": { emoji: "🌃", title: "SYSTEM CLEARED", eyebrow: "Neon Tokyo", note: "Run complete. Skill level rising.", colors: ["#ff4fd8", "#62f4ff"], effect: "neon" },
-  "cosmic-run": { emoji: "🚀", title: "LIFTOFF!", eyebrow: "Cosmic Run", note: "Solution accepted. New orbit unlocked.", colors: ["#a675ff", "#48e5ff"], effect: "space" },
-  "forest-spirit": { emoji: "🍃", title: "QUEST COMPLETE", eyebrow: "Forest Spirit", note: "A calm mind finds the path.", colors: ["#80ed99", "#d8f3dc"], effect: "leaves" },
-  "sunset-drive": { emoji: "🌅", title: "SMOOTH SOLVE", eyebrow: "Sunset Drive", note: "Cruising into the next challenge.", colors: ["#ff7b54", "#ffd56b"], effect: "sunset" },
+  "neon-web": { emoji: "🕸️", title: "CITY SAVED!", eyebrow: "Neon Web", note: "Another bug caught. Another mission complete.", colors: ["#ff304f", "#29b6ff"], effect: "web" },
   custom: { emoji: "✨", title: "YOU DID IT!", eyebrow: "Custom World", note: "Your code. Your world. Your victory.", colors: ["#f8c451", "#ff7b9c"], effect: "custom" }
 };
 
-const CC_DEFAULTS = { enabled: true, theme: "pixel-quest", accent: "#ffcf4a", blur: 8, overlay: 55, customBackground: "", sound: true, celebrateOnce: true, intensity: "full" };
+const CC_DEFAULTS = { enabled: true, theme: "neon-web", accent: "#ff304f", blur: 2, overlay: 42, customBackground: "", sound: true, celebrateOnce: true, intensity: "full" };
 let ccSettings = { ...CC_DEFAULTS };
 let lastAcceptedAt = 0;
 let acceptedVisible = false;
@@ -32,6 +27,10 @@ function isProblemPage() {
 }
 
 function applyTheme(settings) {
+  if (!CC_THEMES[settings.theme] && settings.theme !== "custom") {
+    settings = { ...settings, theme: "neon-web", accent: "#ff304f" };
+    chrome.storage.local.set(settings);
+  }
   ccSettings = settings;
   const root = document.documentElement;
   root.classList.toggle("cc-enabled", Boolean(settings.enabled));
@@ -41,19 +40,17 @@ function applyTheme(settings) {
   root.style.setProperty("--cc-accent-2", theme.colors[1]);
   root.style.setProperty("--cc-blur", `${settings.blur}px`);
   root.style.setProperty("--cc-overlay", String(settings.overlay / 100));
-  root.style.setProperty("--cc-background", settings.customBackground ? `url("${settings.customBackground}")` : defaultBackdrop(settings.theme));
+  const background = settings.customBackground || chrome.runtime.getURL("assets/neon-web-city.png");
+  root.style.setProperty("--cc-background", `url("${background}")`);
+  ensureBackdrop();
 }
 
-function defaultBackdrop(id) {
-  const patterns = {
-    "web-hero": "linear-gradient(125deg, #07142d 0%, #1e356b 42%, #7e1323 100%)",
-    "pixel-quest": "linear-gradient(135deg, #100d29 0%, #34205e 50%, #152f35 100%)",
-    "neon-tokyo": "linear-gradient(155deg, #090617 10%, #511359 55%, #052f47 100%)",
-    "cosmic-run": "radial-gradient(circle at 70% 20%, #553091 0%, #071426 42%, #02040b 100%)",
-    "forest-spirit": "linear-gradient(135deg, #06150e, #17472e 55%, #0e2620)",
-    "sunset-drive": "linear-gradient(160deg, #23113d, #8e335b 55%, #ff835e)"
-  };
-  return patterns[id] || patterns["pixel-quest"];
+function ensureBackdrop() {
+  if (document.querySelector("#cc-backdrop")) return;
+  const backdrop = document.createElement("div");
+  backdrop.id = "cc-backdrop";
+  backdrop.setAttribute("aria-hidden", "true");
+  document.documentElement.appendChild(backdrop);
 }
 
 function playVictorySound() {
@@ -129,21 +126,9 @@ function celebrate() {
 }
 
 function buildThemeEffect(host, effect) {
-  const count = ccSettings.intensity === "calm" ? 4 : 10;
   if (effect === "web") {
     for (let i = 0; i < 7; i++) host.insertAdjacentHTML("beforeend", `<i class="cc-web-spoke" style="--turn:${i * 25}deg"></i>`);
-    host.insertAdjacentHTML("beforeend", '<i class="cc-web-line"></i><b class="cc-hero-swing">🕷️</b>');
-  } else if (effect === "pixel") {
-    for (let i = 0; i < count; i++) host.insertAdjacentHTML("beforeend", `<i class="cc-pixel" style="--x:${8 + Math.random() * 84}%;--y:${10 + Math.random() * 78}%;--delay:${Math.random()}s"></i>`);
-  } else if (effect === "neon") {
-    host.insertAdjacentHTML("beforeend", '<i class="cc-neon-grid"></i><i class="cc-scanline"></i>');
-  } else if (effect === "space") {
-    for (let i = 0; i < count * 2; i++) host.insertAdjacentHTML("beforeend", `<i class="cc-star" style="--x:${Math.random() * 100}%;--y:${Math.random() * 100}%;--delay:${Math.random() * 1.5}s"></i>`);
-    host.insertAdjacentHTML("beforeend", '<b class="cc-rocket-trail">🚀</b>');
-  } else if (effect === "leaves") {
-    for (let i = 0; i < count; i++) host.insertAdjacentHTML("beforeend", `<i class="cc-leaf" style="--x:${Math.random() * 100}%;--delay:${Math.random() * 2}s">🍃</i>`);
-  } else if (effect === "sunset") {
-    host.insertAdjacentHTML("beforeend", '<i class="cc-sun"></i><i class="cc-road"></i>');
+    host.insertAdjacentHTML("beforeend", '<i class="cc-web-line"></i><b class="cc-web-dancer"><i class="cc-dancer-head"></i><i class="cc-dancer-body"></i><i class="cc-dancer-arm left"></i><i class="cc-dancer-arm right"></i><i class="cc-dancer-leg left"></i><i class="cc-dancer-leg right"></i></b>');
   } else {
     host.insertAdjacentHTML("beforeend", '<i class="cc-custom-glow"></i>');
   }

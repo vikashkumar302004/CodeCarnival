@@ -22,6 +22,10 @@ async function save(patch) {
 }
 
 chrome.storage.local.get(CODE_CARNIVAL_DEFAULTS, (stored) => {
+  if (!CODE_CARNIVAL_THEMES.some(({ id }) => id === stored.theme) && stored.theme !== "custom") {
+    stored = { ...stored, theme: "neon-web", accent: "#ff304f" };
+    chrome.storage.local.set(stored);
+  }
   settings = stored;
   $("#enabled").checked = settings.enabled;
   $("#accent").value = settings.accent;

@@ -48,6 +48,10 @@ async function save(patch, message = "Theme saved") {
 }
 
 chrome.storage.local.get(CODE_CARNIVAL_DEFAULTS, (stored) => {
+  if (!CODE_CARNIVAL_THEMES.some(({ id }) => id === stored.theme) && stored.theme !== "custom") {
+    stored = { ...stored, theme: "neon-web", accent: "#ff304f" };
+    chrome.storage.local.set(stored);
+  }
   settings = stored;
   $("#enabled").checked = settings.enabled;
   $("#accent").value = settings.accent;
@@ -77,7 +81,7 @@ $("#background-file").addEventListener("change", (event) => {
   reader.readAsDataURL(file);
 });
 
-$("#remove-image").addEventListener("click", () => save({ customBackground: "", theme: "pixel-quest" }, "Custom image removed"));
+$("#remove-image").addEventListener("click", () => save({ customBackground: "", theme: "neon-web", accent: "#ff304f" }, "Custom image removed"));
 $("#reset").addEventListener("click", async () => {
   await chrome.storage.local.clear();
   settings = { ...CODE_CARNIVAL_DEFAULTS };
@@ -100,4 +104,3 @@ $("#preview-celebration").addEventListener("click", async () => {
   if (!tab?.id || !tab.url?.includes("leetcode.com")) return showToast("Open a LeetCode problem first");
   chrome.tabs.sendMessage(tab.id, { type: "CODE_CARNIVAL_PREVIEW" });
 });
-

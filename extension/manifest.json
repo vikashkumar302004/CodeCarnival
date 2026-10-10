@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "CodeCarnival",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Beautiful LeetCode themes and a celebration for every Accepted.",
   "permissions": ["storage", "activeTab"],
   "host_permissions": ["https://leetcode.com/*", "https://*.leetcode.com/*"],
@@ -28,6 +28,12 @@
       "js": ["content.js"],
       "css": ["content.css"],
       "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/neon-web-city.png"],
+      "matches": ["https://leetcode.com/*", "https://*.leetcode.com/*"]
     }
   ]
 }

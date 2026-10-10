@@ -2,6 +2,20 @@
 
 All notable changes to CodeCarnival are documented here.
 
+## 1.1.0 — 2026-10-10
+
+### Fixed
+
+- Rebuilt theme rendering around a real injected backdrop so LeetCode's opaque panels no longer hide the theme
+- Made blur and shade controls affect the visible background correctly
+- Added focused glass styling for the current LeetCode split workspace and Monaco editor
+
+### Changed
+
+- Replaced the six shallow presets with one deeply crafted Neon Web signature theme
+- Added a cinematic bundled city background and a CSS-animated dancing web hero celebration
+- Migrated existing preset selections automatically to Neon Web
+
 ## 1.0.0 — 2026-10-10
 
 Production-ready release package.

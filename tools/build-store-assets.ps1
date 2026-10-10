@@ -94,11 +94,11 @@ function Export-StoreScreenshot {
     $graphics.DrawString("CodeCarnival", $headingFont, $white, 118, 41)
     $graphics.DrawString("THEME STUDIO", $smallFont, $muted, 119, 66)
     $graphics.DrawString("Make LeetCode feel like yours.", $titleFont, $white, 52, 118)
-    $graphics.DrawString("Six coding worlds, custom backgrounds, and a celebration for every Accepted.", $bodyFont, $muted, 56, 172)
+    $graphics.DrawString("A cinematic coding world and a celebration for every Accepted.", $bodyFont, $muted, 56, 172)
 
     $graphics.FillRectangle($panel, 52, 220, 220, 510)
-    $graphics.DrawString("WORLDS", $smallFont, $gold, 72, 243)
-    $worlds = @("⚔  Pixel Quest", "◇  Web Hero", "▦  Neon Tokyo", "▲  Cosmic Run", "●  Forest Spirit", "◒  Sunset Drive")
+    $graphics.DrawString("SIGNATURE WORLD", $smallFont, $gold, 72, 243)
+    $worlds = @("◇  Neon Web")
     for ($index = 0; $index -lt $worlds.Count; $index++) {
       $y = 280 + ($index * 58)
       if ($index -eq 0) { $graphics.FillRectangle($purple, 66, $y - 8, 192, 43) }
@@ -118,8 +118,8 @@ function Export-StoreScreenshot {
     $graphics.DrawString("    // your brilliant code", $monoFont, $muted, 775, 368)
     $graphics.DrawString("  }", $monoFont, $white, 775, 400)
     $graphics.DrawString("};", $monoFont, $mint, 775, 432)
-    $graphics.DrawString("⚔", $titleFont, $gold, 1045, 500)
-    $graphics.DrawString("PIXEL QUEST", $smallFont, $gold, 1038, 552)
+    $graphics.DrawString("◇", $titleFont, $gold, 1045, 500)
+    $graphics.DrawString("NEON WEB", $smallFont, $gold, 1038, 552)
 
     $graphics.DrawString("Accent", $smallFont, $muted, 330, 632)
     $graphics.FillEllipse($gold, 332, 659, 26, 26)

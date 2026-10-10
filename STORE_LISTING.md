@@ -10,7 +10,7 @@
 
 **Language:** English
 
-**Version:** 1.0.0
+**Version:** 1.1.0
 
 ## Detailed description
 
@@ -20,8 +20,8 @@ CodeCarnival transforms LeetCode into a personal coding world. Choose a polished
 
 Features:
 
-- Six built-in coding worlds
-- A unique Accepted celebration for every theme
+- A cinematic Neon Web coding world
+- A matching animated Accepted celebration with a dancing web hero
 - Custom image and GIF backgrounds
 - Accent, blur, and dark-overlay controls
 - Full Theme Studio with a live preview
@@ -86,4 +86,3 @@ Required to apply themes to LeetCode problem pages and detect the visible Accept
 - [ ] Developer account registration and fee — account owner action
 - [ ] Account 2-Step Verification — account owner action
 - [ ] Upload ZIP and submit for review — account owner action
-

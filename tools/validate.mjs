@@ -19,6 +19,7 @@ const referencedFiles = [
 
 const iconFiles = Object.values(manifest.icons || {});
 referencedFiles.push(...iconFiles);
+referencedFiles.push(...(manifest.web_accessible_resources || []).flatMap((entry) => entry.resources || []));
 
 for (const file of referencedFiles) {
   try { await access(join(root, "extension", file)); }
