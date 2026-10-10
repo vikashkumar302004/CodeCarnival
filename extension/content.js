@@ -19,7 +19,9 @@ const RESULT_SELECTORS = [
   '[class*="submission-result"]',
   '[class*="result-state"]',
   '[role="dialog"] [role="status"]',
-  '[role="dialog"] [class*="success"]'
+  '[role="dialog"] [class*="success"]',
+  '[role="tab"]',
+  'button'
 ];
 
 function isProblemPage() {
@@ -153,7 +155,10 @@ function normalizedResultText(node) {
 function findAcceptedResult() {
   for (const selector of RESULT_SELECTORS) {
     for (const node of document.querySelectorAll(selector)) {
-      if (isVisible(node) && /(^|\s)Accepted(?:!|\s|$)/i.test(normalizedResultText(node))) return node;
+      const text = normalizedResultText(node);
+      const exactTabResult = (selector === '[role="tab"]' || selector === 'button') && /^Accepted!?$/i.test(text);
+      const resultPanelMatch = selector !== '[role="tab"]' && selector !== 'button' && /(^|\s)Accepted(?:!|\s|$)/i.test(text);
+      if (isVisible(node) && (exactTabResult || resultPanelMatch)) return node;
     }
   }
   return null;

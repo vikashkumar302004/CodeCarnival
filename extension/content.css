@@ -10,7 +10,7 @@
 html.cc-enabled.cc-problem-page body { background: #030711 !important; }
 #cc-backdrop {
   position: fixed;
-  z-index: 0;
+  z-index: 2147483000;
   inset: 0;
   display: none;
   overflow: hidden;
@@ -20,12 +20,16 @@ html.cc-enabled.cc-problem-page body { background: #030711 !important; }
   background-size: cover;
   filter: blur(var(--cc-blur));
   transform: scale(1.04);
+  opacity: calc(.62 - var(--cc-overlay) * .45);
+  mix-blend-mode: screen;
 }
 #cc-backdrop::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(2, 5, 14, calc(var(--cc-overlay) + .18)), rgba(3, 7, 17, var(--cc-overlay)) 58%, rgba(1, 4, 12, calc(var(--cc-overlay) - .1)));
+  opacity: .18;
+  background-image: radial-gradient(#29b6ff 0.7px, transparent 0.8px);
+  background-size: 5px 5px;
 }
 html.cc-enabled.cc-problem-page #cc-backdrop { display: block; }
 html.cc-enabled.cc-problem-page body > div:not(#cc-backdrop) { position: relative; z-index: 1; background-color: transparent !important; }
@@ -39,7 +43,8 @@ html.cc-enabled.cc-problem-page .flexlayout__tab,
 html.cc-enabled.cc-problem-page #qd-content { background-color: transparent !important; }
 html.cc-enabled.cc-problem-page [class*="rounded"],
 html.cc-enabled.cc-problem-page [class*="editor-container"] {
-  border-color: var(--cc-border) !important;
+  border-color: color-mix(in srgb, var(--cc-accent-2) 48%, transparent) !important;
+  box-shadow: inset 0 0 0 1px rgba(41, 182, 255, .12), 0 0 26px rgba(0, 101, 180, .08);
 }
 html.cc-enabled.cc-problem-page nav,
 html.cc-enabled.cc-problem-page header,
@@ -54,6 +59,7 @@ html.cc-enabled.cc-problem-page .monaco-editor,
 html.cc-enabled.cc-problem-page .monaco-editor-background,
 html.cc-enabled.cc-problem-page .monaco-editor .margin { background-color: rgba(5, 9, 18, .72) !important; }
 html.cc-enabled.cc-problem-page [class*="split-view-view"] { background-color: transparent !important; }
+html.cc-enabled.cc-problem-page [role="tab"] { border-color: rgba(41, 182, 255, .22) !important; }
 html.cc-enabled.cc-problem-page button[class*="bg-green"],
 html.cc-enabled.cc-problem-page [data-e2e-locator="console-submit-button"] { box-shadow: 0 0 22px color-mix(in srgb, var(--cc-accent-2) 55%, transparent); }
 

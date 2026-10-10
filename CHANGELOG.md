@@ -2,6 +2,14 @@
 
 All notable changes to CodeCarnival are documented here.
 
+## 1.1.1 — 2026-10-10
+
+### Fixed
+
+- Guaranteed comic artwork visibility above opaque LeetCode workspace layers using a pointer-safe blend layer
+- Added current LeetCode Accepted tab detection so successful solutions trigger the celebration
+- Replaced the city artwork with a sharper hand-inked graphic-novel environment
+
 ## 1.1.0 — 2026-10-10
 
 ### Fixed
