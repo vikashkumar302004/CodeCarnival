@@ -1,0 +1,37 @@
+name: Package extension release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate extension
+        run: |
+          node tools/validate.mjs
+          node tools/compatibility-check.mjs
+          node --check extension/content.js
+          node --check extension/popup.js
+          node --check extension/studio.js
+      - name: Package extension
+        shell: pwsh
+        run: ./tools/package-extension.ps1
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          prerelease: ${{ contains(github.ref_name, 'beta') }}
+          generate_release_notes: true
+          files: |
+            dist/codecarnival-extension.zip
+            dist/codecarnival-extension.sha256
+

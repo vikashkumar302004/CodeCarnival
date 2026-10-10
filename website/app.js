@@ -60,5 +60,13 @@ document.querySelector("#theme-demo").addEventListener("click", runCelebration);
 document.querySelector("#celebration button").addEventListener("click", closeCelebration);
 document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeCelebration(); });
 
-selectTheme(themes[0]);
+document.querySelectorAll("[data-copy]").forEach((button) => {
+  button.addEventListener("click", async () => {
+    await navigator.clipboard.writeText(button.dataset.copy);
+    const original = button.textContent;
+    button.textContent = "Copied!";
+    setTimeout(() => button.textContent = original, 1400);
+  });
+});
 
+selectTheme(themes[0]);

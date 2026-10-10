@@ -13,5 +13,8 @@ if (Test-Path -LiteralPath $archivePath) {
 }
 
 Compress-Archive -Path (Join-Path $extensionRoot "*") -DestinationPath $archivePath -CompressionLevel Optimal
+$hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $archivePath).Hash.ToLowerInvariant()
+$checksumPath = Join-Path $outputRoot "codecarnival-extension.sha256"
+Set-Content -LiteralPath $checksumPath -Value "$hash  codecarnival-extension.zip"
 Write-Output "Created $archivePath"
-
+Write-Output "SHA256 $hash"

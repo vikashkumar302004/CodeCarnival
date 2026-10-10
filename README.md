@@ -22,6 +22,8 @@ CodeCarnival is a Chrome extension that turns LeetCode into a themed coding spac
 
 For testing, the popup includes a **Preview celebration** button.
 
+For the packaged beta workflow, see [docs/INSTALL.md](docs/INSTALL.md).
+
 ### Build an installable ZIP
 
 ```powershell
