@@ -70,3 +70,5 @@ $("#preview").addEventListener("click", async () => {
   chrome.tabs.sendMessage(tab.id, { type: "CODE_CARNIVAL_PREVIEW" });
   window.close();
 });
+
+$("#open-studio").addEventListener("click", () => chrome.runtime.openOptionsPage());

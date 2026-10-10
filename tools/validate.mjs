@@ -12,6 +12,7 @@ if (!manifest.host_permissions?.includes("https://leetcode.com/*")) failures.pus
 
 const referencedFiles = [
   manifest.action?.default_popup,
+  manifest.options_page,
   ...manifest.content_scripts.flatMap((entry) => [...(entry.js || []), ...(entry.css || [])])
 ].filter(Boolean);
 
@@ -34,4 +35,3 @@ if (failures.length) {
 console.log(`✓ Manifest V${manifest.manifest_version} is valid`);
 console.log(`✓ ${referencedFiles.length} referenced extension files exist`);
 console.log("✓ Extension has no remote runtime dependencies");
-
