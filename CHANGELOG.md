@@ -2,6 +2,14 @@
 
 All notable changes to CodeCarnival are documented here.
 
+## 1.2.0 — 2026-10-10
+
+### Added
+
+- Sakura Ronin: cinematic anime-fantasy artwork, petal storm, and energy-slash celebration
+- Pixel Dungeon: premium pixel-art world, coin rain, and stage-clear celebration
+- Full built-in artwork previews in the popup, Theme Studio, and dashboard
+
 ## 1.1.1 — 2026-10-10
 
 ### Fixed

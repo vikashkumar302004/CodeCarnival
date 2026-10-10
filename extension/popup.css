@@ -19,7 +19,7 @@ section { margin-top: 19px; }
 h2 { font: 600 13px ui-rounded, system-ui, sans-serif; }
 .section-title span, .text-button { color: #85838f; font-size: 10px; }
 .theme-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
-.theme-card { position: relative; overflow: hidden; min-height: 76px; padding: 13px; text-align: left; color: white; border: 1px solid #ffffff12; border-radius: 13px; background: linear-gradient(110deg, var(--c1), var(--c2)88, var(--c3)33); cursor: pointer; transition: transform .18s, border-color .18s; }
+.theme-card { position: relative; overflow: hidden; min-height: 76px; padding: 13px; text-align: left; color: white; border: 1px solid #ffffff12; border-radius: 13px; background-image: linear-gradient(90deg, var(--c1) 5%, color-mix(in srgb, var(--c1) 45%, transparent)), var(--bg); background-size: cover; background-position: center; cursor: pointer; transition: transform .18s, border-color .18s; }
 .theme-card:hover { transform: translateY(-2px); }
 .theme-card.active { border-color: var(--c3); box-shadow: 0 0 0 1px var(--c3), 0 10px 28px #0008; }
 .theme-card .emoji { float: left; margin: 3px 13px 10px 0; font-size: 30px; filter: drop-shadow(0 3px 5px #0008); }

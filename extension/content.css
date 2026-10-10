@@ -96,6 +96,10 @@ html.cc-enabled.cc-problem-page [data-e2e-locator="console-submit-button"] { box
 .cc-dancer-arm { top: 49px; height: 72px; }.cc-dancer-arm.left { left: 15px; animation: cc-arm-left .72s ease-in-out infinite alternate; }.cc-dancer-arm.right { right: 13px; animation: cc-arm-right .72s ease-in-out infinite alternate; }
 .cc-dancer-leg { top: 98px; height: 70px; }.cc-dancer-leg.left { left: 28px; animation: cc-leg-left .72s ease-in-out infinite alternate; }.cc-dancer-leg.right { right: 25px; animation: cc-leg-right .72s ease-in-out infinite alternate; }
 .cc-custom-glow { position: absolute; inset: 20%; border-radius: 50%; background: var(--cc-accent); filter: blur(100px); opacity: .22; animation: cc-custom-pulse 1.5s ease-in-out infinite alternate; }
+.cc-sakura-petal { position: absolute; left: var(--x); top: -12%; font-size: var(--s); filter: drop-shadow(0 0 8px #f34fbf); animation: cc-sakura-fall 3s ease-in var(--delay) infinite; }
+.cc-ronin-slash { position: absolute; left: -20%; top: 48%; width: 140%; height: 4px; background: white; box-shadow: 0 0 12px 5px #f34fbf, 0 0 45px 12px #b9a1ff; transform: rotate(-10deg) scaleX(0); animation: cc-slash 1.8s cubic-bezier(.2,.8,.2,1) .45s both; }
+.cc-pixel-coin { position: absolute; left: var(--x); top: -10%; color: #ffc542; font-size: 18px; text-shadow: 5px 0 #9a6410, 0 5px #9a6410; animation: cc-coin-rain 2.5s steps(8) var(--delay) infinite; }
+.cc-pixel-sword { position: absolute; left: 12%; bottom: 12%; font-size: 92px; filter: drop-shadow(0 0 22px #35e6a2); animation: cc-pixel-victory .8s steps(5) infinite alternate; }
 
 @keyframes cc-fade-in { from { opacity: 0; } }
 @keyframes cc-fade-out { to { opacity: 0; transform: scale(1.03); } }
@@ -110,6 +114,10 @@ html.cc-enabled.cc-problem-page [data-e2e-locator="console-submit-button"] { box
 @keyframes cc-leg-left { from { transform: rotate(18deg); } to { transform: rotate(48deg); } }
 @keyframes cc-leg-right { from { transform: rotate(-45deg); } to { transform: rotate(-12deg); } }
 @keyframes cc-custom-pulse { to { transform: scale(1.4); opacity: .35; } }
+@keyframes cc-sakura-fall { to { transform: translate(90px, 118vh) rotate(620deg); } }
+@keyframes cc-slash { 55% { transform: rotate(-10deg) scaleX(1); opacity: 1; } 100% { transform: rotate(-10deg) scaleX(1); opacity: 0; } }
+@keyframes cc-coin-rain { to { transform: translateY(118vh) rotate(720deg); } }
+@keyframes cc-pixel-victory { to { transform: translateY(-25px) rotate(12deg) scale(1.1); } }
 
 @media (prefers-reduced-motion: reduce) {
   #cc-celebration *, #cc-celebration { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }

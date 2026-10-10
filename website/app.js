@@ -1,5 +1,7 @@
 const themes = [
-  { id: "neon-web", name: "Neon Web", icon: "🕸️", title: "CITY SAVED!", note: "Another bug caught · Mission complete", colors: ["#ff304f", "#29b6ff", "#050b18"] }
+  { id: "neon-web", name: "Neon Web", icon: "🕸️", title: "CITY SAVED!", note: "Another bug caught · Mission complete", image: "../extension/assets/neon-web-city.png", colors: ["#ff304f", "#29b6ff", "#050b18"] },
+  { id: "sakura-ronin", name: "Sakura Ronin", icon: "🌸", title: "VICTORY BLOOMS", note: "The challenge falls · Your focus remains", image: "../extension/assets/sakura-ronin.png", colors: ["#f34fbf", "#b9a1ff", "#11091f"] },
+  { id: "pixel-dungeon", name: "Pixel Dungeon", icon: "⚔️", title: "STAGE CLEAR!", note: "+100 XP · A new quest awaits", image: "../extension/assets/pixel-dungeon.png", colors: ["#ffc542", "#35e6a2", "#090b20"] }
 ];
 
 const tabs = document.querySelector(".theme-tabs");
@@ -15,6 +17,7 @@ function selectTheme(theme) {
   stage.style.setProperty("--primary", theme.colors[0]);
   stage.style.setProperty("--secondary", theme.colors[1]);
   stage.style.setProperty("--deep", theme.colors[2]);
+  stage.style.setProperty("--art", `url("${theme.image}")`);
   stage.querySelector(".preview-icon").textContent = theme.icon;
   stage.querySelector(".preview-copy span").textContent = theme.name.toUpperCase();
   stage.querySelector("h3").textContent = theme.title;

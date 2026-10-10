@@ -10,7 +10,7 @@
 
 **Language:** English
 
-**Version:** 1.1.1
+**Version:** 1.2.0
 
 ## Detailed description
 
@@ -20,8 +20,8 @@ CodeCarnival transforms LeetCode into a personal coding world. Choose a polished
 
 Features:
 
-- A cinematic Neon Web coding world
-- A matching animated Accepted celebration with a dancing web hero
+- Three cinematic coding worlds: Neon Web, Sakura Ronin, and Pixel Dungeon
+- A distinct animated Accepted celebration for every world
 - Custom image and GIF backgrounds
 - Accent, blur, and dark-overlay controls
 - Full Theme Studio with a live preview

@@ -1,5 +1,7 @@
 const CC_THEMES = {
-  "neon-web": { emoji: "🕸️", title: "CITY SAVED!", eyebrow: "Neon Web", note: "Another bug caught. Another mission complete.", colors: ["#ff304f", "#29b6ff"], effect: "web" },
+  "neon-web": { emoji: "🕸️", title: "CITY SAVED!", eyebrow: "Neon Web", note: "Another bug caught. Another mission complete.", background: "assets/neon-web-city.png", colors: ["#ff304f", "#29b6ff"], effect: "web" },
+  "sakura-ronin": { emoji: "🌸", title: "VICTORY BLOOMS", eyebrow: "Sakura Ronin", note: "The challenge falls. Your focus remains.", background: "assets/sakura-ronin.png", colors: ["#f34fbf", "#b9a1ff"], effect: "sakura" },
+  "pixel-dungeon": { emoji: "⚔️", title: "STAGE CLEAR!", eyebrow: "Pixel Dungeon", note: "+100 XP · A new quest awaits.", background: "assets/pixel-dungeon.png", colors: ["#ffc542", "#35e6a2"], effect: "pixel" },
   custom: { emoji: "✨", title: "YOU DID IT!", eyebrow: "Custom World", note: "Your code. Your world. Your victory.", colors: ["#f8c451", "#ff7b9c"], effect: "custom" }
 };
 
@@ -42,7 +44,7 @@ function applyTheme(settings) {
   root.style.setProperty("--cc-accent-2", theme.colors[1]);
   root.style.setProperty("--cc-blur", `${settings.blur}px`);
   root.style.setProperty("--cc-overlay", String(settings.overlay / 100));
-  const background = settings.customBackground || chrome.runtime.getURL("assets/neon-web-city.png");
+  const background = settings.customBackground || chrome.runtime.getURL(theme.background || "assets/neon-web-city.png");
   root.style.setProperty("--cc-background", `url("${background}")`);
   ensureBackdrop();
 }
@@ -131,6 +133,12 @@ function buildThemeEffect(host, effect) {
   if (effect === "web") {
     for (let i = 0; i < 7; i++) host.insertAdjacentHTML("beforeend", `<i class="cc-web-spoke" style="--turn:${i * 25}deg"></i>`);
     host.insertAdjacentHTML("beforeend", '<i class="cc-web-line"></i><b class="cc-web-dancer"><i class="cc-dancer-head"></i><i class="cc-dancer-body"></i><i class="cc-dancer-arm left"></i><i class="cc-dancer-arm right"></i><i class="cc-dancer-leg left"></i><i class="cc-dancer-leg right"></i></b>');
+  } else if (effect === "sakura") {
+    for (let i = 0; i < (ccSettings.intensity === "calm" ? 12 : 30); i++) host.insertAdjacentHTML("beforeend", `<i class="cc-sakura-petal" style="--x:${Math.random() * 100}%;--delay:${Math.random() * 2}s;--s:${12 + Math.random() * 18}px">🌸</i>`);
+    host.insertAdjacentHTML("beforeend", '<i class="cc-ronin-slash"></i>');
+  } else if (effect === "pixel") {
+    for (let i = 0; i < (ccSettings.intensity === "calm" ? 10 : 26); i++) host.insertAdjacentHTML("beforeend", `<i class="cc-pixel-coin" style="--x:${Math.random() * 100}%;--delay:${Math.random() * 1.5}s">◆</i>`);
+    host.insertAdjacentHTML("beforeend", '<b class="cc-pixel-sword">⚔️</b>');
   } else {
     host.insertAdjacentHTML("beforeend", '<i class="cc-custom-glow"></i>');
   }

@@ -3,7 +3,7 @@ let settings = { ...CODE_CARNIVAL_DEFAULTS };
 
 function renderThemes() {
   $("#theme-grid").innerHTML = CODE_CARNIVAL_THEMES.map((theme) => `
-    <button class="theme-card ${theme.id === settings.theme ? "active" : ""}" data-theme="${theme.id}" style="--c1:${theme.colors[0]};--c2:${theme.colors[1]}55;--c3:${theme.colors[2]}">
+    <button class="theme-card ${theme.id === settings.theme ? "active" : ""}" data-theme="${theme.id}" style="--c1:${theme.colors[0]};--c2:${theme.colors[1]}55;--c3:${theme.colors[2]};--bg:url('${theme.background}')">
       <span class="emoji">${theme.emoji}</span><strong>${theme.name}</strong><small>${theme.tagline}</small>
     </button>`).join("");
 }

@@ -21,7 +21,9 @@ function updatePreview() {
   const preview = $("#live-preview");
   preview.style.setProperty("--preview-blur", `${settings.blur}px`);
   preview.style.setProperty("--shade", settings.overlay / 100);
-  preview.style.setProperty("--custom-bg", settings.customBackground ? `url("${settings.customBackground}")` : "none");
+  const builtInBackground = theme.background ? chrome.runtime.getURL(theme.background) : "";
+  const previewBackground = settings.customBackground || builtInBackground;
+  preview.style.setProperty("--custom-bg", previewBackground ? `url("${previewBackground}")` : "none");
   $("#preview-emoji").textContent = theme.emoji;
   $("#preview-name").textContent = theme.name;
   $("#accent-value").textContent = settings.accent.toUpperCase();
