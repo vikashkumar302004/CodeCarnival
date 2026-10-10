@@ -33,6 +33,22 @@ chrome.storage.local.get(CODE_CARNIVAL_DEFAULTS, (stored) => {
   renderThemes();
 });
 
+async function checkConnection() {
+  const connection = $("#connection");
+  try {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (!tab?.url?.includes("leetcode.com")) throw new Error("not-leetcode");
+    const response = await chrome.tabs.sendMessage(tab.id, { type: "CODE_CARNIVAL_STATUS" });
+    connection.className = `connection ${response.problemPage ? "connected" : "unsupported"}`;
+    connection.querySelector("span").textContent = response.problemPage ? `Connected · ${response.problem}` : "Open a LeetCode problem to activate";
+  } catch (_) {
+    connection.className = "connection unsupported";
+    connection.querySelector("span").textContent = "Open a LeetCode problem to activate";
+  }
+}
+
+checkConnection();
+
 $("#theme-grid").addEventListener("click", (event) => {
   const card = event.target.closest("[data-theme]");
   if (!card) return;
@@ -67,7 +83,7 @@ $("#reset").addEventListener("click", async () => {
 $("#preview").addEventListener("click", async () => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   if (!tab?.id || !tab.url?.includes("leetcode.com")) return setStatus("Open a LeetCode problem to preview.");
-  chrome.tabs.sendMessage(tab.id, { type: "CODE_CARNIVAL_PREVIEW" });
+  await chrome.tabs.sendMessage(tab.id, { type: "CODE_CARNIVAL_PREVIEW" });
   window.close();
 });
 

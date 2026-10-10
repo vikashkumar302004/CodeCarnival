@@ -7,8 +7,8 @@
   --cc-overlay: .55;
 }
 
-html.cc-enabled body { background: #080811 !important; }
-html.cc-enabled body::before {
+html.cc-enabled.cc-problem-page body { background: #080811 !important; }
+html.cc-enabled.cc-problem-page body::before {
   content: "";
   position: fixed;
   z-index: -2;
@@ -19,7 +19,7 @@ html.cc-enabled body::before {
   filter: blur(var(--cc-blur));
   transform: scale(1.04);
 }
-html.cc-enabled body::after {
+html.cc-enabled.cc-problem-page body::after {
   content: "";
   position: fixed;
   z-index: -1;
@@ -27,17 +27,18 @@ html.cc-enabled body::after {
   pointer-events: none;
   background: rgba(4, 5, 11, var(--cc-overlay));
 }
-html.cc-enabled [class*="bg-layer"],
-html.cc-enabled [class*="bg-fill"],
-html.cc-enabled [class*="bg-base"] { background-color: transparent !important; }
-html.cc-enabled [class*="rounded"],
-html.cc-enabled [class*="editor-container"] {
+html.cc-enabled.cc-problem-page [data-layout-path],
+html.cc-enabled.cc-problem-page [class*="bg-layer"],
+html.cc-enabled.cc-problem-page [class*="bg-fill"],
+html.cc-enabled.cc-problem-page [class*="bg-base"] { background-color: transparent !important; }
+html.cc-enabled.cc-problem-page [class*="rounded"],
+html.cc-enabled.cc-problem-page [class*="editor-container"] {
   border-color: var(--cc-border) !important;
 }
-html.cc-enabled nav,
-html.cc-enabled header,
-html.cc-enabled [class*="panel"],
-html.cc-enabled [class*="container"] {
+html.cc-enabled.cc-problem-page nav,
+html.cc-enabled.cc-problem-page header,
+html.cc-enabled.cc-problem-page [data-layout-path],
+html.cc-enabled.cc-problem-page [class*="editor-container"] {
   backdrop-filter: blur(14px);
 }
 

@@ -34,6 +34,7 @@ The archive is written to `dist/codecarnival-extension.zip`. For local developme
 
 ```powershell
 node tools/validate.mjs
+node tools/compatibility-check.mjs
 node --check extension/content.js
 node --check extension/popup.js
 node --check website/app.js

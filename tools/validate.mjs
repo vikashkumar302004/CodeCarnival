@@ -9,6 +9,7 @@ const failures = [];
 if (manifest.manifest_version !== 3) failures.push("manifest_version must be 3");
 if (!manifest.content_scripts?.length) failures.push("a content script is required");
 if (!manifest.host_permissions?.includes("https://leetcode.com/*")) failures.push("LeetCode host permission is missing");
+if (!manifest.host_permissions?.includes("https://*.leetcode.com/*")) failures.push("LeetCode subdomain permission is missing");
 
 const referencedFiles = [
   manifest.action?.default_popup,
