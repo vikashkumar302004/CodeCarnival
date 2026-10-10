@@ -28,6 +28,8 @@ chrome.storage.local.get(CODE_CARNIVAL_DEFAULTS, (stored) => {
   $("#blur").value = settings.blur;
   $("#overlay").value = settings.overlay;
   $("#sound").checked = settings.sound;
+  $("#celebrate-once").checked = settings.celebrateOnce;
+  $("#intensity").value = settings.intensity;
   renderThemes();
 });
 
@@ -41,6 +43,8 @@ $("#theme-grid").addEventListener("click", (event) => {
 
 $("#enabled").addEventListener("change", (event) => save({ enabled: event.target.checked }));
 $("#sound").addEventListener("change", (event) => save({ sound: event.target.checked }));
+$("#celebrate-once").addEventListener("change", (event) => save({ celebrateOnce: event.target.checked }));
+$("#intensity").addEventListener("change", (event) => save({ intensity: event.target.value }));
 $("#accent").addEventListener("change", (event) => save({ accent: event.target.value }));
 $("#blur").addEventListener("change", (event) => save({ blur: Number(event.target.value) }));
 $("#overlay").addEventListener("change", (event) => save({ overlay: Number(event.target.value) }));
@@ -66,4 +70,3 @@ $("#preview").addEventListener("click", async () => {
   chrome.tabs.sendMessage(tab.id, { type: "CODE_CARNIVAL_PREVIEW" });
   window.close();
 });
-

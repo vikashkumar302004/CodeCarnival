@@ -14,6 +14,7 @@ const CODE_CARNIVAL_DEFAULTS = {
   blur: 8,
   overlay: 55,
   customBackground: "",
-  sound: true
+  sound: true,
+  celebrateOnce: true,
+  intensity: "full"
 };
-

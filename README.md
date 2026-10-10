@@ -21,6 +21,23 @@ CodeCarnival is a Chrome extension that turns LeetCode into a themed coding spac
 
 For testing, the popup includes a **Preview celebration** button.
 
+### Build an installable ZIP
+
+```powershell
+./tools/package-extension.ps1
+```
+
+The archive is written to `dist/codecarnival-extension.zip`. For local development, loading the unpacked `extension/` directory is faster.
+
+### Validate the project
+
+```powershell
+node tools/validate.mjs
+node --check extension/content.js
+node --check extension/popup.js
+node --check website/app.js
+```
+
 ## Preview the dashboard
 
 Open `website/index.html` directly, or serve the repository with any static server.
@@ -35,4 +52,3 @@ website/    Product dashboard and interactive theme previews
 ## Privacy
 
 CodeCarnival only reads LeetCode pages so it can apply visual themes and detect the visible Accepted result. Custom settings stay in `chrome.storage.local`.
-

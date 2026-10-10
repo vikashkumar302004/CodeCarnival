@@ -8,9 +8,11 @@ const CC_THEMES = {
   custom: { emoji: "✨", title: "YOU DID IT!", eyebrow: "Custom World", note: "Your code. Your world. Your victory.", colors: ["#f8c451", "#ff7b9c"], effect: "custom" }
 };
 
-const CC_DEFAULTS = { enabled: true, theme: "pixel-quest", accent: "#ffcf4a", blur: 8, overlay: 55, customBackground: "", sound: true };
+const CC_DEFAULTS = { enabled: true, theme: "pixel-quest", accent: "#ffcf4a", blur: 8, overlay: 55, customBackground: "", sound: true, celebrateOnce: true, intensity: "full" };
 let ccSettings = { ...CC_DEFAULTS };
 let lastAcceptedAt = 0;
+let acceptedVisible = false;
+const celebratedProblems = new Set();
 
 function applyTheme(settings) {
   ccSettings = settings;
@@ -62,7 +64,9 @@ function celebrate() {
   layer.id = "cc-celebration";
   layer.setAttribute("role", "dialog");
   layer.setAttribute("aria-label", `${theme.title} celebration`);
+  layer.dataset.effect = theme.effect;
   layer.innerHTML = `
+    <div class="cc-effect-layer" aria-hidden="true"></div>
     <div class="cc-victory-card">
       <span class="cc-victory-icon">${theme.emoji}</span>
       <div class="cc-eyebrow">${theme.eyebrow}</div>
@@ -71,7 +75,8 @@ function celebrate() {
     </div>
     <button class="cc-skip">Skip · Esc</button>`;
 
-  for (let i = 0; i < 48; i++) {
+  const particleCount = ccSettings.intensity === "calm" ? 18 : 54;
+  for (let i = 0; i < particleCount; i++) {
     const particle = document.createElement("i");
     particle.className = "cc-particle";
     particle.style.cssText = `left:${Math.random() * 100}%;--particle:${i % 2 ? theme.colors[0] : theme.colors[1]};--duration:${2 + Math.random() * 2}s;--delay:${Math.random() * 1.1}s;--drift:${-100 + Math.random() * 200}px`;
@@ -83,11 +88,7 @@ function celebrate() {
     ring.style.setProperty("--delay", `${i * .4}s`);
     layer.appendChild(ring);
   }
-  if (theme.effect === "web") {
-    const web = document.createElement("i");
-    web.className = "cc-web-line";
-    layer.appendChild(web);
-  }
+  buildThemeEffect(layer.querySelector(".cc-effect-layer"), theme.effect);
 
   const close = () => {
     if (!layer.isConnected) return;
@@ -102,14 +103,45 @@ function celebrate() {
   setTimeout(close, 4800);
 }
 
+function buildThemeEffect(host, effect) {
+  const count = ccSettings.intensity === "calm" ? 4 : 10;
+  if (effect === "web") {
+    for (let i = 0; i < 7; i++) host.insertAdjacentHTML("beforeend", `<i class="cc-web-spoke" style="--turn:${i * 25}deg"></i>`);
+    host.insertAdjacentHTML("beforeend", '<i class="cc-web-line"></i><b class="cc-hero-swing">🕷️</b>');
+  } else if (effect === "pixel") {
+    for (let i = 0; i < count; i++) host.insertAdjacentHTML("beforeend", `<i class="cc-pixel" style="--x:${8 + Math.random() * 84}%;--y:${10 + Math.random() * 78}%;--delay:${Math.random()}s"></i>`);
+  } else if (effect === "neon") {
+    host.insertAdjacentHTML("beforeend", '<i class="cc-neon-grid"></i><i class="cc-scanline"></i>');
+  } else if (effect === "space") {
+    for (let i = 0; i < count * 2; i++) host.insertAdjacentHTML("beforeend", `<i class="cc-star" style="--x:${Math.random() * 100}%;--y:${Math.random() * 100}%;--delay:${Math.random() * 1.5}s"></i>`);
+    host.insertAdjacentHTML("beforeend", '<b class="cc-rocket-trail">🚀</b>');
+  } else if (effect === "leaves") {
+    for (let i = 0; i < count; i++) host.insertAdjacentHTML("beforeend", `<i class="cc-leaf" style="--x:${Math.random() * 100}%;--delay:${Math.random() * 2}s">🍃</i>`);
+  } else if (effect === "sunset") {
+    host.insertAdjacentHTML("beforeend", '<i class="cc-sun"></i><i class="cc-road"></i>');
+  } else {
+    host.insertAdjacentHTML("beforeend", '<i class="cc-custom-glow"></i>');
+  }
+}
+
+function currentProblemKey() {
+  const match = location.pathname.match(/\/problems\/([^/]+)/);
+  return match?.[1] || location.pathname;
+}
+
 function inspectForAccepted() {
   const candidates = document.querySelectorAll('[data-e2e-locator="submission-result"], [class*="result"], [role="dialog"], [role="status"]');
   const accepted = Array.from(candidates).some((node) => /(^|\s)Accepted(\s|$)/i.test(node.textContent || ""));
   const now = Date.now();
-  if (accepted && now - lastAcceptedAt > 15000) {
+  const problemKey = currentProblemKey();
+  const alreadyCelebrated = ccSettings.celebrateOnce && celebratedProblems.has(problemKey);
+  if (accepted && !acceptedVisible && !alreadyCelebrated && now - lastAcceptedAt > 15000) {
     lastAcceptedAt = now;
+    acceptedVisible = true;
+    celebratedProblems.add(problemKey);
     celebrate();
   }
+  if (!accepted) acceptedVisible = false;
 }
 
 chrome.storage.local.get(CC_DEFAULTS, applyTheme);
@@ -125,4 +157,3 @@ const observer = new MutationObserver(() => {
   inspectForAccepted.timer = setTimeout(inspectForAccepted, 250);
 });
 observer.observe(document.documentElement, { childList: true, subtree: true, characterData: true });
-
