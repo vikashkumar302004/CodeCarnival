@@ -17,6 +17,9 @@ const referencedFiles = [
   ...manifest.content_scripts.flatMap((entry) => [...(entry.js || []), ...(entry.css || [])])
 ].filter(Boolean);
 
+const iconFiles = Object.values(manifest.icons || {});
+referencedFiles.push(...iconFiles);
+
 for (const file of referencedFiles) {
   try { await access(join(root, "extension", file)); }
   catch { failures.push(`manifest references missing file: ${file}`); }

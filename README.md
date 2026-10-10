@@ -2,6 +2,8 @@
 
 **Every Accepted deserves a celebration.**
 
+<img src="store-assets/codecarnival-master-icon.png" alt="CodeCarnival icon" width="128" />
+
 CodeCarnival is a Chrome extension that turns LeetCode into a themed coding space and plays a playful, theme-specific celebration when a submission is accepted.
 
 ## What is included
@@ -59,5 +61,7 @@ website/    Product dashboard and interactive theme previews
 CodeCarnival only reads LeetCode pages so it can apply visual themes and detect the visible Accepted result. Custom settings stay in `chrome.storage.local`.
 
 The complete data-handling policy is available in [PRIVACY.md](PRIVACY.md).
+
+Chrome Web Store metadata and the final submission checklist are in [STORE_LISTING.md](STORE_LISTING.md).
 
 See [ROADMAP.md](ROADMAP.md) for the production plan and current phase.

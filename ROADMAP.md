@@ -10,6 +10,6 @@ CodeCarnival is planned as seven focused phases. Each phase ends with a validate
 | 4 | LeetCode compatibility hardening across layouts and navigation | Complete |
 | 5 | Distribution website, versioned downloads, onboarding, and documentation | Complete |
 | 6 | Automated QA, performance, accessibility, and privacy review | Complete |
-| 7 | Store assets, production build, Chrome Web Store submission readiness | Next |
+| 7 | Store assets, production build, Chrome Web Store submission readiness | Complete |
 
-The first public beta can ship after Phase 5. Phase 7 is the production/store-ready milestone.
+The first public beta shipped after Phase 5. Phase 7 is complete; developer-account registration and the final Chrome Web Store review submission remain owner-controlled actions.

@@ -2,6 +2,22 @@
 
 All notable changes to CodeCarnival are documented here.
 
+## 1.0.0 — 2026-10-10
+
+Production-ready release package.
+
+### Added
+
+- Original CodeCarnival extension icon and store artwork
+- Chrome Web Store listing copy, permission justifications, and submission checklist
+- Mandatory 1280×800 screenshot and 440×280 promotional tile
+- Automated privacy, accessibility, performance, and compatibility quality gates
+
+### Changed
+
+- Promoted the extension manifest to version 1.0.0
+- Added padded production icons at 16, 32, 48, and 128 pixels
+
 ## 0.5.0-beta — 2026-10-10
 
 First public beta.
@@ -20,4 +36,3 @@ First public beta.
 
 - The beta is installed with Chrome's **Load unpacked** flow.
 - Chrome Web Store distribution is planned for the production release.
-

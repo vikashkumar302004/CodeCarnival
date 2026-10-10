@@ -24,6 +24,8 @@ The extension does not read or store solution source code, passwords, cookies, h
 
 CodeCarnival does not include analytics, advertising, remote scripts, or tracking pixels. It does not transmit user data to the project author or third parties.
 
+CodeCarnival's use of information received from Google APIs will adhere to the Chrome Web Store User Data Policy, including its Limited Use requirements. The current extension does not call Google APIs.
+
 ## Removing stored data
 
 Use **Reset** in the CodeCarnival popup or Theme Studio. Uninstalling the extension also removes its local extension storage according to Chrome's standard behaviour.
@@ -31,4 +33,3 @@ Use **Reset** in the CodeCarnival popup or Theme Studio. Uninstalling the extens
 ## Changes
 
 Any privacy-impacting change will be documented in the changelog and reflected in this policy before release.
-
