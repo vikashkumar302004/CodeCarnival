@@ -77,10 +77,12 @@ function playVictorySound() {
 
 function celebrate() {
   if (!ccSettings.enabled || document.querySelector("#cc-celebration")) return;
+  const previousFocus = document.activeElement;
   const theme = CC_THEMES[ccSettings.theme] || CC_THEMES.custom;
   const layer = document.createElement("div");
   layer.id = "cc-celebration";
   layer.setAttribute("role", "dialog");
+  layer.setAttribute("aria-modal", "true");
   layer.setAttribute("aria-label", `${theme.title} celebration`);
   layer.dataset.effect = theme.effect;
   layer.innerHTML = `
@@ -110,13 +112,18 @@ function celebrate() {
 
   const close = () => {
     if (!layer.isConnected) return;
+    document.removeEventListener("keydown", onKey);
     layer.classList.add("cc-exit");
-    setTimeout(() => layer.remove(), 420);
+    setTimeout(() => {
+      layer.remove();
+      if (previousFocus instanceof HTMLElement && previousFocus.isConnected) previousFocus.focus();
+    }, 420);
   };
   layer.querySelector(".cc-skip").addEventListener("click", close);
-  const onKey = (event) => { if (event.key === "Escape") { close(); document.removeEventListener("keydown", onKey); } };
+  const onKey = (event) => { if (event.key === "Escape") close(); };
   document.addEventListener("keydown", onKey);
   document.body.appendChild(layer);
+  layer.querySelector(".cc-skip").focus();
   playVictorySound();
   setTimeout(close, 4800);
 }
@@ -169,7 +176,7 @@ function findAcceptedResult() {
 
 function inspectForAccepted() {
   inspectionQueued = false;
-  if (!ccSettings.enabled || !isProblemPage()) {
+  if (document.hidden || !ccSettings.enabled || !isProblemPage()) {
     acceptedVisible = false;
     return;
   }
@@ -225,5 +232,6 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 const observer = new MutationObserver(queueInspection);
 observer.observe(document.documentElement, { childList: true, subtree: true, characterData: true });
 window.addEventListener("popstate", handleLocationChange);
+document.addEventListener("visibilitychange", queueInspection);
 setInterval(handleLocationChange, 750);
 queueInspection();

@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="noise"></div>
-    <nav>
+    <nav aria-label="Primary navigation">
       <a class="logo" href="#top"><span>CC</span> CodeCarnival</a>
       <div class="nav-links"><a href="#themes">Themes</a><a href="#customize">Customize</a><a href="#how">How it works</a></div>
       <a class="nav-cta" href="https://github.com/vikashkumar302004/CodeCarnival/releases/latest/download/codecarnival-extension.zip">Download beta <span>↓</span></a>
@@ -99,7 +99,7 @@
 
     <footer><a class="logo" href="#top"><span>CC</span> CodeCarnival</a><p>Made for coders who still get excited by the green check.</p><a href="https://github.com/vikashkumar302004/CodeCarnival" target="_blank" rel="noreferrer">GitHub ↗</a></footer>
 
-    <div id="celebration" class="celebration" aria-hidden="true"><div class="celebration-card"><div class="celebration-icon">⚔️</div><span>PIXEL QUEST</span><h2>STAGE CLEAR!</h2><p>+100 XP · The next level awaits</p></div><button aria-label="Close celebration">Skip · Esc</button></div>
+    <div id="celebration" class="celebration" role="dialog" aria-modal="true" aria-label="CodeCarnival celebration" aria-hidden="true"><div class="celebration-card"><div class="celebration-icon" aria-hidden="true">⚔️</div><span>PIXEL QUEST</span><h2>STAGE CLEAR!</h2><p>+100 XP · The next level awaits</p></div><button aria-label="Close celebration">Skip · Esc</button></div>
     <script src="app.js"></script>
   </body>
 </html>

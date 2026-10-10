@@ -10,6 +10,7 @@ const themes = [
 const tabs = document.querySelector(".theme-tabs");
 const stage = document.querySelector(".theme-preview");
 let activeTheme = themes[0];
+let celebrationTrigger = null;
 
 tabs.innerHTML = themes.map((theme, index) => `<button role="tab" aria-selected="${index === 0}" data-id="${theme.id}"><i>${theme.icon}</i><span>${theme.name}</span></button>`).join("");
 
@@ -32,6 +33,7 @@ tabs.addEventListener("click", (event) => {
 
 function runCelebration() {
   const layer = document.querySelector("#celebration");
+  celebrationTrigger = document.activeElement;
   layer.style.setProperty("--primary", activeTheme.colors[0]);
   layer.style.setProperty("--secondary", activeTheme.colors[1]);
   layer.querySelector(".celebration-icon").textContent = activeTheme.icon;
@@ -47,12 +49,14 @@ function runCelebration() {
   }
   layer.classList.add("show");
   layer.setAttribute("aria-hidden", "false");
+  layer.querySelector("button").focus();
 }
 
 function closeCelebration() {
   const layer = document.querySelector("#celebration");
   layer.classList.remove("show");
   layer.setAttribute("aria-hidden", "true");
+  celebrationTrigger?.focus();
 }
 
 document.querySelector("#hero-demo").addEventListener("click", runCelebration);

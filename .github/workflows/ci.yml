@@ -1,0 +1,33 @@
+name: Quality checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate extension and compatibility
+        run: |
+          node tools/validate.mjs
+          node tools/compatibility-check.mjs
+          node tools/quality-check.mjs
+      - name: Check JavaScript syntax
+        run: |
+          node --check extension/content.js
+          node --check extension/popup.js
+          node --check extension/studio.js
+          node --check website/app.js
+      - name: Build release package
+        shell: pwsh
+        run: ./tools/package-extension.ps1
+

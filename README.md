@@ -37,6 +37,7 @@ The archive is written to `dist/codecarnival-extension.zip`. For local developme
 ```powershell
 node tools/validate.mjs
 node tools/compatibility-check.mjs
+node tools/quality-check.mjs
 node --check extension/content.js
 node --check extension/popup.js
 node --check website/app.js
@@ -56,5 +57,7 @@ website/    Product dashboard and interactive theme previews
 ## Privacy
 
 CodeCarnival only reads LeetCode pages so it can apply visual themes and detect the visible Accepted result. Custom settings stay in `chrome.storage.local`.
+
+The complete data-handling policy is available in [PRIVACY.md](PRIVACY.md).
 
 See [ROADMAP.md](ROADMAP.md) for the production plan and current phase.
