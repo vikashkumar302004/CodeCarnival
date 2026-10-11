@@ -1,5 +1,9 @@
 .DS_Store
 Thumbs.db
 *.zip
+!website/public/downloads/codecarnival-extension.zip
 dist/
-
+website/node_modules/
+website/*.tsbuildinfo
+website/vite-*.log
+/*.mp3

@@ -14,6 +14,7 @@ const extensionSources = await Promise.all([
 ].map(read));
 const websiteHtml = await read("website/index.html");
 const websiteCss = await read("website/styles.css");
+const websiteApp = await read("website/src/App.tsx");
 const studioHtml = await read("extension/studio.html");
 const popupHtml = await read("extension/popup.html");
 
@@ -22,13 +23,12 @@ check(!extensionSources.some((source) => /\bfetch\s*\(|XMLHttpRequest|WebSocket|
 check(!extensionSources.some((source) => /\beval\s*\(|new Function/.test(source)), "extension contains no dynamic code execution");
 check(!contentJs.includes("document.cookie"), "content script does not access cookies");
 check(websiteHtml.includes('lang="en"') && studioHtml.includes('lang="en"') && popupHtml.includes('lang="en"'), "all interfaces declare a document language");
-check(websiteHtml.includes('aria-modal="true"') && contentJs.includes('aria-modal'), "celebration dialogs expose modal semantics");
+check(websiteApp.includes('aria-modal="true"') && contentJs.includes('role", "status"') && contentJs.includes('aria-live", "polite"'), "celebrations expose appropriate accessible semantics");
 check(websiteCss.includes("prefers-reduced-motion") && extensionSources.filter((source) => source.includes("prefers-reduced-motion")).length >= 2, "interfaces respect reduced-motion preferences");
-check(websiteHtml.includes("<main") && studioHtml.includes("<main") && popupHtml.includes("<main"), "all interfaces include a main landmark");
+check(websiteApp.includes("<main") && studioHtml.includes("<main") && popupHtml.includes("<main"), "all interfaces include a main landmark");
 check((await stat(new URL("extension/content.js", root))).size < 30_000, "content script stays below the 30 KB budget");
 check(extensionSources.join("").length < 150_000, "extension source stays below the 150 KB budget");
 
 for (const message of passes) console.log(`✓ ${message}`);
 for (const message of failures) console.error(`✗ ${message}`);
 if (failures.length) process.exit(1);
-

@@ -7,6 +7,7 @@ function themeFor(id) {
 }
 
 function renderThemes() {
+  $("#studio-theme-count").textContent = CODE_CARNIVAL_THEMES.length;
   $("#theme-list").innerHTML = CODE_CARNIVAL_THEMES.map((theme) => `
     <button class="theme-item ${settings.theme === theme.id ? "active" : ""}" data-theme="${theme.id}" style="--c1:${theme.colors[0]};--c2:${theme.colors[1]};--c3:${theme.colors[2]}">
       <span>${theme.emoji}</span><div><b>${theme.name}</b><small>${theme.tagline}</small></div>
@@ -21,9 +22,8 @@ function updatePreview() {
   const preview = $("#live-preview");
   preview.style.setProperty("--preview-blur", `${settings.blur}px`);
   preview.style.setProperty("--shade", settings.overlay / 100);
-  const builtInBackground = theme.background ? chrome.runtime.getURL(theme.background) : "";
-  const previewBackground = settings.customBackground || builtInBackground;
-  preview.style.setProperty("--custom-bg", previewBackground ? `url("${previewBackground}")` : "none");
+  const previewBackground = settings.customBackground ? `url("${settings.customBackground}")` : theme.wallpaper;
+  preview.style.setProperty("--custom-bg", previewBackground || "none");
   $("#preview-emoji").textContent = theme.emoji;
   $("#preview-name").textContent = theme.name;
   $("#accent-value").textContent = settings.accent.toUpperCase();
@@ -51,7 +51,7 @@ async function save(patch, message = "Theme saved") {
 
 chrome.storage.local.get(CODE_CARNIVAL_DEFAULTS, (stored) => {
   if (!CODE_CARNIVAL_THEMES.some(({ id }) => id === stored.theme) && stored.theme !== "custom") {
-    stored = { ...stored, theme: "neon-web", accent: "#ff304f" };
+    stored = { ...stored, theme: "midnight-ink", accent: "#7aa2ff" };
     chrome.storage.local.set(stored);
   }
   settings = stored;
@@ -83,7 +83,7 @@ $("#background-file").addEventListener("change", (event) => {
   reader.readAsDataURL(file);
 });
 
-$("#remove-image").addEventListener("click", () => save({ customBackground: "", theme: "neon-web", accent: "#ff304f" }, "Custom image removed"));
+$("#remove-image").addEventListener("click", () => save({ customBackground: "", theme: "midnight-ink", accent: "#7aa2ff" }, "Custom image removed"));
 $("#reset").addEventListener("click", async () => {
   await chrome.storage.local.clear();
   settings = { ...CODE_CARNIVAL_DEFAULTS };

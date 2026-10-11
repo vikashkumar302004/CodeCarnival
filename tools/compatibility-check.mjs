@@ -10,7 +10,7 @@ const checks = [
   [content.includes("handleLocationChange"), "SPA navigation handler is present"],
   [content.includes("data-e2e-locator"), "stable result locator is present"],
   [content.includes("isVisible(node)"), "hidden-result guard is present"],
-  [content.includes("acceptedVisible"), "submission-state latch is present"]
+  [content.includes("visibleResult"), "submission-state latch is present"]
 ];
 
 const failures = checks.filter(([passed]) => !passed);
@@ -20,4 +20,3 @@ if (failures.length) {
 }
 
 for (const [, message] of checks) console.log(`✓ ${message}`);
-

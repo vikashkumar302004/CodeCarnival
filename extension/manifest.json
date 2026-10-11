@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "CodeCarnival",
-  "version": "1.2.0",
+  "version": "1.6.2",
   "description": "Beautiful LeetCode themes and a celebration for every Accepted.",
   "permissions": ["storage", "activeTab"],
   "host_permissions": ["https://leetcode.com/*", "https://*.leetcode.com/*"],
@@ -32,7 +32,35 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["assets/neon-web-city.png", "assets/sakura-ronin.png", "assets/pixel-dungeon.png"],
+      "resources": [
+        "assets/shinchan-dance.png",
+        "assets/shinchan-wallpaper.png",
+        "assets/shinchan-victory.mp3",
+        "assets/shinchan-wrong.mp3",
+        "assets/heroic-rise.mp3",
+        "assets/dark-suit.mp3",
+        "assets/mission-beat.mp3",
+        "assets/volt-ranger.png",
+        "assets/scrap-drone.png",
+        "assets/volt-city-v2.png",
+        "assets/shadow-hacker.png",
+        "assets/bug-wraith.png",
+        "assets/null-district.png",
+        "assets/sakura-sanctuary.png",
+        "assets/sakura-keeper.png",
+        "assets/moonlit-station.png",
+        "assets/moonlit-traveler.png",
+        "assets/moonlit-train.png",
+        "assets/cyber-ronin-shrine.png",
+        "assets/cyber-ronin-warrior.png",
+        "assets/lofi-rain-loft.png",
+        "assets/lofi-rain-coder.png",
+        "assets/floating-sky-library.png",
+        "assets/sky-librarian.png",
+        "assets/festival-rooftop.png",
+        "assets/festival-visitor.png",
+        "assets/festival-mascot.png"
+      ],
       "matches": ["https://leetcode.com/*", "https://*.leetcode.com/*"]
     }
   ]

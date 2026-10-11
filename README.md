@@ -9,7 +9,7 @@ CodeCarnival is a Chrome extension that turns LeetCode into a themed coding spac
 ## What is included
 
 - A Manifest V3 Chrome extension in `extension/`
-- Three premium image-based themes with matching celebrations
+- Fifteen distinctive themes with matching celebrations and high-contrast LeetCode readability
 - A custom theme creator (background image, accent, blur, and overlay)
 - A full-page Theme Studio with a live LeetCode preview
 - A responsive showcase/download dashboard in `website/`

@@ -9,7 +9,7 @@
   <body>
     <main>
       <header>
-        <div class="brand-mark">CC</div>
+        <div class="brand-mark" aria-label="CodeCarnival logo">✦</div>
         <div><h1>CodeCarnival</h1><p>Make every solve feel legendary.</p></div>
         <label class="switch" title="Enable CodeCarnival">
           <input id="enabled" type="checkbox" checked />
@@ -19,8 +19,16 @@
       <div id="connection" class="connection"><i></i><span>Checking LeetCode page…</span></div>
 
       <section>
-        <div class="section-title"><h2>Choose your world</h2><span id="theme-count">3 premium themes</span></div>
-        <div id="theme-grid" class="theme-grid"></div>
+        <div class="section-title"><h2>Theme</h2><span id="theme-count">11 themes</span></div>
+        <button id="theme-picker-toggle" class="picker-summary" aria-expanded="false" aria-controls="theme-picker">
+          <span id="selected-theme-swatch" class="picker-swatch">✦</span>
+          <span><strong id="selected-theme-name">Midnight Ink</strong><small id="selected-theme-tagline">Deep focus, zero noise</small></span>
+          <i>›</i>
+        </button>
+        <div id="theme-picker" class="picker-panel" hidden>
+          <div class="picker-heading"><div><strong>Choose your world</strong><small id="picker-theme-count">11 available</small></div><button id="theme-picker-close" aria-label="Close theme picker">×</button></div>
+          <div id="theme-grid" class="theme-grid"></div>
+        </div>
       </section>
 
       <section class="customizer">
@@ -37,11 +45,23 @@
         </div>
       </section>
 
+      <section class="sound-card">
+        <div class="sound-heading">
+          <button id="sound-picker-toggle" aria-expanded="false" aria-controls="sound-picker-panel"><span class="sound-icon">♫</span><span><h2>Submit sounds</h2><small>Correct and failed submission audio</small></span><i>›</i></button>
+          <label class="mini-switch" title="Enable submit sounds"><input id="sound" type="checkbox" checked /><span></span></label>
+        </div>
+        <div id="sound-picker-panel" class="sound-picker-panel" hidden>
+          <label class="sound-choice"><span><b>✓ Correct answer</b><small>When submission is Accepted</small></span><select id="success-sound"><option value="theme">Match selected theme</option><option value="shinchan">Shinchan victory</option><option value="heroic-rise">Heroic rise</option><option value="dark-suit">Dark suit</option><option value="mission-beat">Mission beat</option><option value="custom">My uploaded sound</option><option value="none">No sound</option></select></label>
+          <label class="sound-upload" for="success-sound-file"><input id="success-sound-file" type="file" accept="audio/mpeg,audio/wav,audio/ogg" /><span>↑</span><span><b>Upload correct sound</b><small id="success-upload-state">MP3, WAV or OGG · max 3 MB</small></span></label>
+          <label class="sound-choice"><span><b>× Failed submission</b><small>Wrong, compile or runtime error</small></span><select id="wrong-sound"><option value="soft-error">Soft error tone</option><option value="anath">Anath dialogue</option><option value="custom">My uploaded sound</option><option value="none">No sound</option></select></label>
+          <label class="sound-upload" for="wrong-sound-file"><input id="wrong-sound-file" type="file" accept="audio/mpeg,audio/wav,audio/ogg" /><span>↑</span><span><b>Upload failed sound</b><small id="wrong-upload-state">Shinchan always uses “Anath”</small></span></label>
+        </div>
+      </section>
       <section class="celebration-row">
-        <label><input id="sound" type="checkbox" checked /> Celebration sound</label>
         <button id="preview" class="primary-button">Preview celebration</button>
       </section>
       <section class="behavior-settings">
+        <label><span><b>LeetCode side button</b><small>Show the floating CodeCarnival logo</small></span><input id="show-dock" type="checkbox" checked /></label>
         <label><span>Play once per problem</span><input id="celebrate-once" type="checkbox" checked /></label>
         <label><span>Effect intensity</span><select id="intensity"><option value="full">Full carnival</option><option value="calm">Calm</option></select></label>
       </section>
