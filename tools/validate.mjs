@@ -26,7 +26,7 @@ for (const file of referencedFiles) {
   catch { failures.push(`manifest references missing file: ${file}`); }
 }
 
-const extensionFiles = ["popup.html", "popup.css", "popup.js", "themes.js", "content.css", "content.js"];
+const extensionFiles = ["popup.html", "popup.css", "popup.js", "themes.js", "content.css", "sounds.js", "content.js"];
 for (const file of extensionFiles) {
   const source = await readFile(join(root, "extension", file), "utf8");
   if (/https?:\/\//.test(source)) failures.push(`${file} contains a remote dependency`);

@@ -6,12 +6,12 @@ function renderThemes() {
   $("#picker-theme-count").textContent = `${CODE_CARNIVAL_THEMES.length} available`;
   $("#theme-grid").innerHTML = CODE_CARNIVAL_THEMES.map((theme) => `
     <button class="theme-card ${theme.id === settings.theme ? "active" : ""}" data-theme="${theme.id}" style="--c1:${theme.colors[0]};--c2:${theme.colors[1]}55;--c3:${theme.colors[2]};--bg:${theme.wallpaper}">
-      <span class="emoji">${theme.emoji}</span><strong>${theme.name}</strong><small>${theme.tagline}</small>
+      <span class="emoji">${theme.icon ? `<img src="${theme.icon}" alt="" />` : theme.emoji}</span><strong>${theme.name}</strong><small>${theme.tagline}</small>
     </button>`).join("");
   const selected = CODE_CARNIVAL_THEMES.find(({ id }) => id === settings.theme) || CODE_CARNIVAL_THEMES[0];
   $("#selected-theme-name").textContent = selected.name;
   $("#selected-theme-tagline").textContent = selected.tagline;
-  $("#selected-theme-swatch").textContent = selected.emoji;
+  $("#selected-theme-swatch").innerHTML = selected.icon ? `<img src="${selected.icon}" alt="" />` : selected.emoji;
   $("#selected-theme-swatch").style.cssText = `--summary-bg:${selected.wallpaper};--summary-accent:${selected.colors[1]}`;
 }
 

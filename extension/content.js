@@ -1,7 +1,7 @@
 const CC_THEMES = {
   "midnight-ink": { emoji: "✦", title: "FLOW UNLOCKED", eyebrow: "Midnight Ink", note: "Clean thinking. Clean solution.", wallpaper: "radial-gradient(circle at 80% 12%, #283f73 0, transparent 32%), linear-gradient(145deg, #070b16, #10182b 58%, #07101b)", colors: ["#7aa2ff", "#b7c9ff"], effect: "ink" },
   "mono-paper": { emoji: "▤", title: "SOLVED CLEAN", eyebrow: "Mono Paper", note: "Nothing extra. Just correct.", wallpaper: "linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(145deg, #15171b, #20242a)", colors: ["#f1f3f5", "#aeb6c2"], effect: "custom" },
-  "shinchan-party": { emoji: "🕺", title: "OH YES!", eyebrow: "Shinchan Party", note: "Correct answer. Victory dance time!", wallpaper: `linear-gradient(rgba(14,8,20,.34), rgba(14,8,20,.52)), url("${chrome.runtime.getURL("assets/shinchan-wallpaper.png")}")`, colors: ["#ff5b45", "#ffd84a"], effect: "shinchan" },
+  "shinchan-party": { emoji: "", icon: chrome.runtime.getURL("assets/shinchan-dance.png"), title: "OH YES!", eyebrow: "Shinchan Party", note: "Correct answer. Victory dance time!", wallpaper: `linear-gradient(rgba(14,8,20,.34), rgba(14,8,20,.52)), url("${chrome.runtime.getURL("assets/shinchan-wallpaper.png")}")`, colors: ["#ff5b45", "#ffd84a"], effect: "shinchan" },
   "cyber-ronin": { emoji: "刀", title: "PERFECT STRIKE", eyebrow: "Cyber Ronin", note: "One clean cut through the challenge.", wallpaper: `linear-gradient(rgba(6,4,14,.34), rgba(6,4,14,.68)), url("${chrome.runtime.getURL("assets/cyber-ronin-shrine.png")}")`, colors: ["#ff365f", "#a85cff"], effect: "ronin" },
   "lofi-rain": { emoji: "☂", title: "NIGHT CLEARED", eyebrow: "Lo-Fi Rain", note: "Slow night. Steady progress.", wallpaper: `linear-gradient(rgba(4,9,20,.28), rgba(4,9,20,.62)), url("${chrome.runtime.getURL("assets/lofi-rain-loft.png")}")`, colors: ["#83b7ff", "#d3b6ff"], effect: "lofi" },
   "volt-ranger": { emoji: "⚡", title: "THREAT CLEARED", eyebrow: "Volt Ranger", note: "Target locked. Solution secured.", wallpaper: `linear-gradient(rgba(1,8,6,.42), rgba(1,8,6,.72)), url("${chrome.runtime.getURL("assets/volt-city-v2.png")}")`, colors: ["#32f5b0", "#7dffe0"], effect: "volt" },
@@ -89,7 +89,7 @@ function ensureThemeDock() {
     dock.id = "cc-theme-dock";
     dock.setAttribute("aria-label", "CodeCarnival theme picker");
     dock.innerHTML = `
-      <button class="cc-dock-toggle" aria-expanded="false" aria-label="Open CodeCarnival themes"><span class="cc-logo-mark">✦</span></button>
+      <button class="cc-dock-toggle" aria-expanded="false" aria-label="Open CodeCarnival themes"><img class="cc-logo-mark" src="${chrome.runtime.getURL("icons/icon-32.png")}" alt="" /></button>
       <div class="cc-dock-panel">
         <header><div><b>CodeCarnival</b><small>Choose your focus world</small></div><button class="cc-dock-close" aria-label="Close theme picker">×</button></header>
         <div class="cc-dock-themes"></div>
@@ -115,7 +115,7 @@ function ensureThemeDock() {
   }
   dock.querySelector(".cc-dock-themes").innerHTML = Object.entries(CC_THEMES)
     .filter(([id]) => id !== "custom")
-    .map(([id, theme]) => `<button data-cc-theme="${id}" class="${ccSettings.theme === id ? "active" : ""}" style="--dock-a:${theme.colors[0]};--dock-b:${theme.colors[1]};--dock-bg:${theme.wallpaper}"><i>${theme.emoji}</i><span><b>${theme.eyebrow}</b><small>${theme.note}</small></span><em>✓</em></button>`)
+    .map(([id, theme]) => `<button data-cc-theme="${id}" class="${ccSettings.theme === id ? "active" : ""}" style="--dock-a:${theme.colors[0]};--dock-b:${theme.colors[1]};--dock-bg:${theme.wallpaper}"><i>${theme.icon ? `<img src="${theme.icon}" alt="" />` : theme.emoji}</i><span><b>${theme.eyebrow}</b><small>${theme.note}</small></span><em>✓</em></button>`)
     .join("");
 }
 
@@ -160,30 +160,33 @@ function selectedSuccessFile() {
   return files[ccSettings.successSound] || "";
 }
 
+function playThemeSignature(kind) {
+  const profile = CC_SOUND_PROFILES[ccSettings.theme] || CC_SOUND_PROFILES.custom;
+  const notes = profile[kind];
+  if (!notes?.length) return;
+  const ctx = new AudioContext();
+  notes.forEach(([frequency, type, delay, duration, volume]) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const start = ctx.currentTime + delay;
+    osc.type = type;
+    osc.frequency.setValueAtTime(frequency, start);
+    gain.gain.setValueAtTime(.001, start);
+    gain.gain.exponentialRampToValueAtTime(volume, start + .018);
+    gain.gain.exponentialRampToValueAtTime(.001, start + duration);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(start);
+    osc.stop(start + duration + .03);
+  });
+  const finish = Math.max(...notes.map(([, , delay, duration]) => delay + duration)) + .12;
+  window.setTimeout(() => ctx.close().catch(() => {}), finish * 1000);
+}
+
 function playVictorySound() {
   if (!ccSettings.sound) return;
   if (ccSettings.successSound === "none") return;
   if (playAudioAsset(selectedSuccessFile())) return;
-  try {
-    const ctx = new AudioContext();
-    const effect = (CC_THEMES[ccSettings.theme] || CC_THEMES.custom).effect;
-    const melody = effect === "shinchan" ? [659.25, 783.99, 659.25, 1046.5, 1174.66]
-      : effect === "ronin" ? [220, 440, 880]
-      : effect === "lofi" ? [392, 493.88, 587.33, 493.88]
-      : [523.25, 659.25, 783.99, 1046.5];
-    melody.forEach((frequency, index) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = "triangle";
-      osc.frequency.value = frequency;
-      gain.gain.setValueAtTime(0, ctx.currentTime + index * .1);
-      gain.gain.linearRampToValueAtTime(.12, ctx.currentTime + index * .1 + .02);
-      gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + index * .1 + .38);
-      osc.connect(gain).connect(ctx.destination);
-      osc.start(ctx.currentTime + index * .1);
-      osc.stop(ctx.currentTime + index * .1 + .4);
-    });
-  } catch (_) {}
+  try { playThemeSignature("success"); } catch (_) {}
 }
 
 function playWrongSound() {
@@ -192,21 +195,7 @@ function playWrongSound() {
   if (ccSettings.wrongSound === "none") return;
   if (ccSettings.wrongSound === "anath") return void playAudioAsset("assets/shinchan-wrong.mp3");
   if (ccSettings.wrongSound === "custom") return void playAudioAsset(ccSettings.customWrongSound);
-  try {
-    const ctx = new AudioContext();
-    [196, 146.83].forEach((frequency, index) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.value = frequency;
-      gain.gain.setValueAtTime(.001, ctx.currentTime + index * .13);
-      gain.gain.linearRampToValueAtTime(.07, ctx.currentTime + index * .13 + .02);
-      gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + index * .13 + .28);
-      osc.connect(gain).connect(ctx.destination);
-      osc.start(ctx.currentTime + index * .13);
-      osc.stop(ctx.currentTime + index * .13 + .3);
-    });
-  } catch (_) {}
+  try { playThemeSignature("wrong"); } catch (_) {}
 }
 
 function celebrate() {
@@ -222,7 +211,7 @@ function celebrate() {
     <div class="cc-cinema-shade" aria-hidden="true"></div>
     <div class="cc-effect-layer" aria-hidden="true"></div>
     <div class="cc-victory-card" data-effect="${theme.effect}">
-      <div class="cc-kicker"><span>${theme.emoji}</span>${theme.eyebrow}</div>
+      <div class="cc-kicker"><span>${theme.icon ? `<img src="${theme.icon}" alt="" />` : theme.emoji}</span>${theme.eyebrow}</div>
       <div class="cc-title-row"><i></i><h2>${theme.title}</h2><i></i></div>
       <p><strong>ACCEPTED</strong><span>ALL TESTS PASSED</span></p>
       <small>${theme.note}</small>

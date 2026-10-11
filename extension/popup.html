@@ -47,14 +47,14 @@
 
       <section class="sound-card">
         <div class="sound-heading">
-          <button id="sound-picker-toggle" aria-expanded="false" aria-controls="sound-picker-panel"><span class="sound-icon">♫</span><span><h2>Submit sounds</h2><small>Correct and failed submission audio</small></span><i>›</i></button>
-          <label class="mini-switch" title="Enable submit sounds"><input id="sound" type="checkbox" checked /><span></span></label>
+          <button id="sound-picker-toggle" aria-expanded="false" aria-controls="sound-picker-panel"><span class="sound-icon">♫</span><span><h2>Sounds</h2><small>Accepted and failed answer audio</small></span><i>›</i></button>
+          <label class="mini-switch" title="Enable sounds"><input id="sound" type="checkbox" checked /><span></span></label>
         </div>
         <div id="sound-picker-panel" class="sound-picker-panel" hidden>
           <label class="sound-choice"><span><b>✓ Correct answer</b><small>When submission is Accepted</small></span><select id="success-sound"><option value="theme">Match selected theme</option><option value="shinchan">Shinchan victory</option><option value="heroic-rise">Heroic rise</option><option value="dark-suit">Dark suit</option><option value="mission-beat">Mission beat</option><option value="custom">My uploaded sound</option><option value="none">No sound</option></select></label>
           <label class="sound-upload" for="success-sound-file"><input id="success-sound-file" type="file" accept="audio/mpeg,audio/wav,audio/ogg" /><span>↑</span><span><b>Upload correct sound</b><small id="success-upload-state">MP3, WAV or OGG · max 3 MB</small></span></label>
           <label class="sound-choice"><span><b>× Failed submission</b><small>Wrong, compile or runtime error</small></span><select id="wrong-sound"><option value="soft-error">Soft error tone</option><option value="anath">Anath dialogue</option><option value="custom">My uploaded sound</option><option value="none">No sound</option></select></label>
-          <label class="sound-upload" for="wrong-sound-file"><input id="wrong-sound-file" type="file" accept="audio/mpeg,audio/wav,audio/ogg" /><span>↑</span><span><b>Upload failed sound</b><small id="wrong-upload-state">Shinchan always uses “Anath”</small></span></label>
+          <label class="sound-upload" for="wrong-sound-file"><input id="wrong-sound-file" type="file" accept="audio/mpeg,audio/wav,audio/ogg" /><span>↑</span><span><b>Upload failed sound</b><small id="wrong-upload-state">Shinchan uses the Fah reaction</small></span></label>
         </div>
       </section>
       <section class="celebration-row">
@@ -66,6 +66,7 @@
         <label><span>Effect intensity</span><select id="intensity"><option value="full">Full carnival</option><option value="calm">Calm</option></select></label>
       </section>
       <button id="open-studio" class="studio-button">Open full Theme Studio <span>↗</span></button>
+      <a class="custom-theme-contact" href="mailto:vikash981103@gmail.com"><span>✦</span><div><b>Want a custom theme?</b><small>Tell me your idea · vikash981103@gmail.com</small></div><i>↗</i></a>
       <p id="status" role="status"></p>
     </main>
     <script src="themes.js"></script>

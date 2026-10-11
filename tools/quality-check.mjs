@@ -9,7 +9,7 @@ const check = (condition, message) => (condition ? passes : failures).push(messa
 const manifest = JSON.parse(await read("extension/manifest.json"));
 const contentJs = await read("extension/content.js");
 const extensionSources = await Promise.all([
-  "extension/content.js", "extension/popup.js", "extension/studio.js",
+  "extension/sounds.js", "extension/content.js", "extension/popup.js", "extension/studio.js",
   "extension/content.css", "extension/popup.css", "extension/studio.css"
 ].map(read));
 const websiteHtml = await read("website/index.html");

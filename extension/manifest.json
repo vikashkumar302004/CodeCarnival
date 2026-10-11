@@ -25,7 +25,7 @@
   "content_scripts": [
     {
       "matches": ["https://leetcode.com/*", "https://*.leetcode.com/*"],
-      "js": ["content.js"],
+      "js": ["sounds.js", "content.js"],
       "css": ["content.css"],
       "run_at": "document_idle"
     }
@@ -33,6 +33,7 @@
   "web_accessible_resources": [
     {
       "resources": [
+        "icons/icon-32.png",
         "assets/shinchan-dance.png",
         "assets/shinchan-wallpaper.png",
         "assets/shinchan-victory.mp3",

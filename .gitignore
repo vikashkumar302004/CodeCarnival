@@ -7,3 +7,4 @@ website/node_modules/
 website/*.tsbuildinfo
 website/vite-*.log
 /*.mp3
+/*.mp4
