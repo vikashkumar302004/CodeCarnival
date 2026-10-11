@@ -11,7 +11,6 @@ export interface Theme {
 export const themes: readonly Theme[] = [
   { id:"midnight-ink",name:"Midnight Ink",icon:"✦",title:"FLOW UNLOCKED",note:"Deep focus · Zero noise",image:"radial-gradient(circle at 80% 12%,#283f73,transparent 32%),linear-gradient(145deg,#070b16,#10182b)",colors:["#7aa2ff","#b7c9ff","#070b16"] },
   { id:"mono-paper",name:"Mono Paper",icon:"▤",title:"SOLVED CLEAN",note:"Maximum readability",image:"linear-gradient(145deg,#15171b,#2a2e35)",colors:["#f1f3f5","#aeb6c2","#15171b"] },
-  { id:"shinchan-party",name:"Shinchan Party",icon:"🕺",title:"OH YES!",note:"Solve · Dance · Repeat",image:"linear-gradient(#160b18aa,#160b18cc),url('/assets/shinchan-wallpaper.png')",colors:["#ff5b45","#ffd84a","#35142c"] },
   { id:"cyber-ronin",name:"Cyber Ronin",icon:"刀",title:"PERFECT STRIKE",note:"Precision under pressure",image:"linear-gradient(#06040e55,#06040ebb),url('/assets/cyber-ronin-shrine.png')",colors:["#ff365f","#a85cff","#0c0915"] },
   { id:"lofi-rain",name:"Lo-Fi Rain",icon:"☂",title:"NIGHT CLEARED",note:"Slow night · Steady progress",image:"linear-gradient(#04091444,#040914aa),url('/assets/lofi-rain-loft.png')",colors:["#83b7ff","#d3b6ff","#0a1019"] },
   { id:"volt-ranger",name:"Volt Ranger",icon:"⚡",title:"THREAT CLEARED",note:"Lock on · Fire · Solve",image:"linear-gradient(#01080666,#010806bb),url('/assets/volt-city-v2.png')",colors:["#32f5b0","#7dffe0","#03110d"] },
